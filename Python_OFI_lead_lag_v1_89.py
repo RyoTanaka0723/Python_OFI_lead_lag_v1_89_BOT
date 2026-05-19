@@ -16,7 +16,7 @@ if hasattr(sys.stdout, 'reconfigure'):
 if hasattr(sys.stderr, 'reconfigure'):
     sys.stderr.reconfigure(encoding='utf-8')
 
-SYMBOL_MT5 = "XAUUSD"
+SYMBOL_MT5 = "XAUUSD.s"
 SYMBOL_BINANCE = "xauusdt"
 MAGIC_NUMBER = 100189
 FIXED_LOT = 0.01
@@ -462,10 +462,15 @@ def _force_close_all(filling, digits):
     if remaining:
         logger.error(f"ForceClose: {len(remaining)} position(s) still open after all retries")
 
-def main():
+def main(): 
+    print("MAIN開始")
     if not mt5.initialize():
-        return
+       print("MT5接続失敗")   
+       print(mt5.last_error())
+       return
     info = mt5.symbol_info(SYMBOL_MT5)
+    print("MT5接続成功")
+    print(info)
     if not info:
         return
 
